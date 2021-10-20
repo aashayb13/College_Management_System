@@ -9,14 +9,13 @@ using System.Web.Mvc;
 
 namespace College_Management_System.Controllers
 {
-    [Route("api/Student")]
     public class StudentController : Controller
     {
         // GET: Student
         private CLGContext db = new CLGContext();
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return Json(db.Students.ToList(), JsonRequestBehavior.AllowGet);
+            return View(db.Students.ToList());
         }
         public ActionResult Login()
         { 
@@ -37,7 +36,6 @@ namespace College_Management_System.Controllers
             return View();
         }
         [HttpPost]
-        [Route("Add")]
         public ActionResult Add(Models.Student student)
         {
             db.Students.Add(student);
@@ -65,7 +63,7 @@ namespace College_Management_System.Controllers
             return View(student);
 
         }
-        [HttpPut, ActionName("Edit")]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
